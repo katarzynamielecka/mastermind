@@ -16,8 +16,8 @@ def wybór_kolorów():
     kolory_słownik = {
                 1: "black",
                 2: "white",
-                3: "orange",
-                4: "brown",
+                3: "grey",
+                4: "pink",
                 5: "yellow",
                 6: "blue",
                 7: "green",
@@ -32,6 +32,9 @@ def wybór_kolorów():
 
 
 def gra():
+    '''
+    Komputer sprawdza kod kolorów wpisany przez gracza
+    '''
     ustawienie_komputer = wybór_kolorów()
     for próba in range(1, 10):
         dobrykolor_na_dobrymmiejscu = 0
