@@ -1,24 +1,23 @@
 import random
-from itertools import product
 
 
 class Gra:
     def kolory_słownik():
         kolory_słownik = {
-                        1: "czarny",
-                        2: "biały",
-                        3: "żółty",
-                        4: "niebieski",
-                        5: "zielony",
-                        6: "czerwony"
+                        "czarny": 1,
+                        "biały": 2,
+                        "żółty": 3,
+                        "niebieski": 4,
+                        "zielony": 5,
+                        "czerwony": 6
         }
         return kolory_słownik
 
     def kolory_lista():
         kolory_słownik = Gra.kolory_słownik()
         kolory_lista = []
-        for values in kolory_słownik.values():
-            kolory_lista.append(values)
+        for keys in kolory_słownik.keys():
+            kolory_lista.append(keys)
         return kolory_lista
 
     def sprawdzanie_wpisanego_koloru(kolor):
@@ -184,53 +183,94 @@ class Gracz_komputer_zgadujący_kod_taktyka:
         5 - zielony
         6 - czerwony
         """
-    kombinacje = []
-    for a in range(1, 7):
-        for b in range(1, 7):
-            for c in range(1, 7):
-                for d in range(1, 7):
-                    kombinacje.append([a, b, c, d])
+        kombinacje = []
+        for a in range(1, 7):
+            for b in range(1, 7):
+                for c in range(1, 7):
+                    for d in range(1, 7):
+                        kombinacje.append([a, b, c, d])
 
-    def pierwsza_runda():
-        ustawienie_kolorów = ["czarny", "czarny", "biały", "biały"]
+    def zgadywanie_kodu(kombinacje):
+        ustawienie_kolorów = random.choice(kombinacje)
         return ustawienie_kolorów
 
-    def początek_runda_druga(dkndm, dk):
-        kombinacje = Gracz_komputer_zgadujący_kod_taktyka.kombinacje()
-        if dk == 0:
-            for x in kombinacje:
-                for y in x:
-                    if y == 1:
-                        kombinacje.remove(x)
-                    if y == 2:
-                        kombinacje.remove(x)
-        if dk ==3:
-            for x in kombinacje:
-                czarne = 0
-                biale = 0
-                for y in x:
-                    if y == 1:
-                        czarne += 1
-                    if y == 2:
-                        biale += 1
-                if biale + czarne != 3 or biale == 0 or czarne == 0:
-                    kombinacje.remove(x)
+    def zamienienie_kolorow_na_cyfry(ustawienie_kolorow):
+        ustawienie_kolorow_cyfry = []
+        kolory_cyfry = Gra.kolory_słownik()
+        for y in ustawienie_kolorow:
+            ustawienie_kolorow_cyfry.append(kolory_cyfry[f'{y}'])
+        return ustawienie_kolorow_cyfry
 
-        if dk == 4:
+    def usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk):
+        if dk == 0:
+            for y in ustawienie_kolorow_cyfry:
+                for x in kombinacje:
+                    for w in x:
+                        if y == w:
+                            kombinacje.remove(x)
+        if dk == 1:
+            n = 0
             for x in kombinacje:
-                for y in x:
-                    if y != 1 or y != 2:
+                for w in x:
+                    for y in ustawienie_kolorow_cyfry:
+                        if w != y:
+                            n += 1
+                    if n == 4:
                         kombinacje.remove(x)
-        if dk == 1 or dk == 2:
+        if dk == 2:
+            n = 0
             for x in kombinacje:
-                sprawdzenie = 0
-                for y in x:
-                    if y != 1 or y != 2:
-                        sprawdzenie += 1
-                if sprawdzenie == 4:
-                    kombinacje.remove(x)
+                for w in x:
+                    for y in ustawienie_kolorow_cyfry:
+                        if w != y:
+                            n += 1
+                    if n > 2:
+                        kombinacje.remove(x)
+        if dk == 3:
+            n = 0
+            for x in kombinacje:
+                for w in x:
+                    for y in ustawienie_kolorow_cyfry:
+                        if w != y:
+                            n += 1
+                    if n > 1:
+                        kombinacje.remove(x)
+        if dk == 4:
+            n = 0
+            for x in kombinacje:
+                for w in x:
+                    for y in ustawienie_kolorow_cyfry:
+                        if w != y:
+                            n += 1
+                    if n > 0:
+                        kombinacje.remove(x)
         if dkndm == 0:
             for x in kombinacje:
-                if x[0] == 1 or x[1] == 1 or x[2] == 2 or x[3] == 2:
+                for i in range(len(ustawienie_kolorow_cyfry)):
+                    if x[i] == ustawienie_kolorow_cyfry[i]:
+                        kombinacje.remove(x)
+        if dkndm == 1:
+            n = 0
+            for x in kombinacje:
+                for i in range(len(ustawienie_kolorow_cyfry)):
+                    if x[i] == ustawienie_kolorow_cyfry[i]:
+                        n += 1
+                if n != 1:
                     kombinacje.remove(x)
-
+        if dkndm == 2:
+            n = 0
+            for x in kombinacje:
+                for i in range(len(ustawienie_kolorow_cyfry)):
+                    if x[i] == ustawienie_kolorow_cyfry[i]:
+                        n += 1
+                if n != 2:
+                    kombinacje.remove(x)
+        if dkndm == 3:
+            n = 0
+            for x in kombinacje:
+                for i in range(len(ustawienie_kolorow_cyfry)):
+                    if x[i] == ustawienie_kolorow_cyfry[i]:
+                        n += 1
+                if n != 3:
+                    kombinacje.remove(x)
+        return kombinacje
