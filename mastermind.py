@@ -100,12 +100,12 @@ class Gracz_ustawiajacy_kod:
         poprzez inputy.
         Testowana poprzez wyprintowanie.
         """
-        ustawienie_kod_gracz = Gra.gracz_ustawienie_kolorow()
-        return ustawienie_kod_gracz
+        kod = Gra.gracz_ustawienie_kolorow()
+        return kod
 
-    def sprawdzanie_proby_zgadniecia(ustawienie_kolorow, kod):
+    def sprawdzanie_zgadniecia(ustawienie_kolorow, kod):
         """
-        Gracz sprawdza próby drugiego gracza
+        Gracz sprawdza próby zgadnięciz drugiego gracza
         lub komputera i wpisuje wynik poprzez inputa
         Jest sprawdzany przy pomocy funkcji
         sprawdzanie_dobry_kolor_miejsce i sprawdzanie_dobry_kolor.
@@ -125,6 +125,7 @@ class Gracz_ustawiajacy_kod:
         while not dk == dk_komputer:
             print("Upewnij się jeszcze raz i wpisz wartość od 0 do 4")
             dk = int(input(f'{pytaniedk}: '))
+        return dkndm
 
 
 class Gracz_zgadujacy_kod:
@@ -152,15 +153,18 @@ class Gracz_komputer_ustawiajacy_kod:
         który drugi gracz ma odgadnąć,
         testowane poprzez wyprintowanie
         """
-        ustawienie_kod_komputer = Gra.losowanie_czterech_kolorow()
-        return ustawienie_kod_komputer
+        kod = Gra.losowanie_czterech_kolorow()
+        return kod
+
+    def sprawdzanie_zgadniecia(ustawienie_kolorow, kod):
+        dk = Gra.sprawdzanie_dobry_kolor(ustawienie_kolorow, kod)
+        print(f'Dobry kolor: {dk}')
+        dkndm = Gra.sprawdzanie_dobry_kolor_miejsce(ustawienie_kolorow, kod)
+        print(f'Dobry kolor na dobrym miejscu: {dkndm}')
 
 
-class Gracz_komputer_zgadujacy_kod_losowo:
-    def __init__(self):
-        self.ustawienie_kolorow = self.zgadywanie_kodu_komputer_losowo()
-
-    def zgadywanie_kodu_komputer_losowo():
+class Gracz_komputer_kod_losowy:
+    def zgadywanie_kodu():
         """
         Gracz komputerowy losuje kolory w celu odgadnięcia
         kodu kolorów ustalonego przez gracza.
@@ -170,7 +174,14 @@ class Gracz_komputer_zgadujacy_kod_losowo:
         return ustawienie_kolorow
 
 
-class Gracz_komputer_zgadujacy_kod_taktyka:
+class Gracz_komputer_kod_taktyczny:
+    """
+    Gracz komputer zgadujący opiera się na liście kombinacji
+    wszystkich kolorów. Po próbie zgadnięcia komputera i odpowiedzi
+    drugiego gracza z listy kombinacji usuwane są ustawienia kolorów,
+    które na pewno nie są kodem. Każda następną próbę zgadnięcia komputer
+    wykonuje losując z listy kombinacji ustawienie.
+    """
     def kombinacje():
         """
         1 - czarny
@@ -200,6 +211,12 @@ class Gracz_komputer_zgadujacy_kod_taktyka:
         return ustawienie_kolorow_cyfry
 
     def usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk):
+        """
+        Usuwanie kolorów z listy kombinacji jest uskuteczniane przy pomocy
+        funkcji sprawdzenie_dobry_kolor i sprawdzenie_dobry_kolor_miejsce.
+        Metody te porównują kolory z listy kombinacji i z poprzedniego ustawienia
+        kolorów zaproponowanego przez komputer.
+        """
         if dk == 0:
             for x in kombinacje:
                 if Gra.sprawdzanie_dobry_kolor(x, ustawienie_kolorow_cyfry) != 0:
