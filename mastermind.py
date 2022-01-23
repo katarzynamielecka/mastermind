@@ -103,28 +103,25 @@ class Gracz_ustawiajacy_kod:
         kod = Gra.gracz_ustawienie_kolorow()
         return kod
 
-    def sprawdzanie_zgadniecia(ustawienie_kolorow, kod):
-        """
-        Gracz sprawdza próby zgadnięciz drugiego gracza
-        lub komputera i wpisuje wynik poprzez inputa
-        Jest sprawdzany przy pomocy funkcji
-        sprawdzanie_dobry_kolor_miejsce i sprawdzanie_dobry_kolor.
-        """
-        # dkndm = dobry_kolor_na_dobrym_miejscu
+    def sprawdzanie_dobry_kolor(ustawienie_kolorow, kod):
         # dk = dobry_kolor
-        pytaniedkndm = "Ile jest dobrych kolorów na dobrych miejscach?"
         pytaniedk = "Ile jest dobrych kolorów?"
-        f = Gra.sprawdzanie_dobry_kolor_miejsce(ustawienie_kolorow, kod)
-        dkndm_komputer = f
         dk_komputer = Gra.sprawdzanie_dobry_kolor(ustawienie_kolorow, kod)
-        dkndm = int(input(f'{pytaniedkndm}: '))
         dk = int(input(f'{pytaniedk}: '))
-        while not dkndm == dkndm_komputer:
-            print("Upewnij się jeszcze raz i wpisz wartość od 0 do 4")
-            dkndm = int(input(f'{pytaniedkndm}: '))
         while not dk == dk_komputer:
             print("Upewnij się jeszcze raz i wpisz wartość od 0 do 4")
             dk = int(input(f'{pytaniedk}: '))
+        return dk
+
+    def sprawdzanie_dobry_kolor_miejsce(ustawienie_kolorow, kod):
+        # dkndm = dobry_kolor_na_dobrym_miejscu
+        pytaniedkndm = "Ile jest dobrych kolorów na dobrych miejscach?"
+        f = Gra.sprawdzanie_dobry_kolor_miejsce(ustawienie_kolorow, kod)
+        dkndm_komputer = f
+        dkndm = int(input(f'{pytaniedkndm}: '))
+        while not dkndm == dkndm_komputer:
+            print("Upewnij się jeszcze raz i wpisz wartość od 0 do 4")
+            dkndm = int(input(f'{pytaniedkndm}: '))
         return dkndm
 
 
@@ -200,8 +197,12 @@ class Gracz_komputer_kod_taktyczny:
         return kombinacje
 
     def zgadywanie_kodu(kombinacje):
-        ustawienie_kolorów = random.choice(kombinacje)
-        return ustawienie_kolorów
+        ustawienie_kolorow_cyfry = random.choice(kombinacje)
+        ustawienie_kolorow = []
+        kolory = Gra.kolory_lista()
+        for y in ustawienie_kolorow_cyfry:
+            ustawienie_kolorow.append(kolory[y-1])
+        return ustawienie_kolorow
 
     def zamienienie_kolorow_na_cyfry(ustawienie_kolorow):
         ustawienie_kolorow_cyfry = []

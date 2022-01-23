@@ -1,7 +1,5 @@
-from mastermind import Gra, Gracz_komputer_ustawiajacy_kod, Gracz_ustawiajacy_kod
-from mastermind import Gracz_zgadujacy_kod, Gracz_komputer_zgadujacy_kod_losowo
-from mastermind import Gracz_komputer_zgadujacy_kod_taktyka
+from mastermind import Gra, Gracz_komputer_kod_taktyczny, Gracz_komputer_ustawiajacy_kod, Gracz_ustawiajacy_kod
+from mastermind import Gracz_zgadujacy_kod
 
-
-kombinacje = Gracz_komputer_zgadujacy_kod_taktyka.kombinacje()
-print(Gracz_komputer_zgadujacy_kod_taktyka.zamienienie_kolorow_na_cyfry(['czarny', bia]))
+kombinacje = Gracz_komputer_kod_taktyczny.kombinacje()
+print(Gracz_komputer_kod_taktyczny.zgadywanie_kodu(kombinacje))

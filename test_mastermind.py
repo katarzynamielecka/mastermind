@@ -1,5 +1,5 @@
 from mastermind import Gra
-from mastermind import Gracz_komputer_zgadujacy_kod_taktyka
+from mastermind import Gracz_komputer_kod_taktyczny
 
 
 def test_kolory_słownik():
@@ -74,14 +74,26 @@ def test_sprawdzanie_dobry_kolor3():
 
 def test_zamienianie_kolorow_na_cyfry():
     ustawienie_kolorow = ['czarny', 'biały', 'żółty', 'niebieski']
-    x = Gracz_komputer_zgadujacy_kod_taktyka.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
+    x = Gracz_komputer_kod_taktyczny.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
     assert x == [1, 2, 3, 4]
 
 
 def test_zamienianie_kolorow_na_cyfry2():
     ustawienie_kolorow = ['czerwony', 'zielony', 'czarny', 'czarny']
-    x = Gracz_komputer_zgadujacy_kod_taktyka.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
+    x = Gracz_komputer_kod_taktyczny.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
     assert x == [6, 5, 1, 1]
+
+
+def test_zamienianie_kolorow_na_cyfry3():
+    ustawienie_kolorow = ['żółty', 'niebieski', 'zielony', 'zielony']
+    x = Gracz_komputer_kod_taktyczny.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
+    assert x == [3, 4, 5, 5]
+
+
+def test_zamienianie_kolorow_na_cyfry4():
+    ustawienie_kolorow = ['czerwony', 'czerwony', 'czerwony', 'czerwony']
+    x = Gracz_komputer_kod_taktyczny.zamienienie_kolorow_na_cyfry(ustawienie_kolorow)
+    assert x == [6, 6, 6, 6]
 
 
 def test_usuwanie_kombinacji():
@@ -89,7 +101,7 @@ def test_usuwanie_kombinacji():
     kombinacje = [[1, 2, 3, 4], [1, 3, 6, 5], [1, 2, 3, 6], [2, 2, 3, 4]]
     dkndm = 1
     dk = 2
-    x = Gracz_komputer_zgadujacy_kod_taktyka.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
+    x = Gracz_komputer_kod_taktyczny.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
     assert x == [[1, 3, 6, 5]]
 
 
@@ -98,7 +110,7 @@ def test_usuwanie_kombinacji2():
     kombinacje = [[1, 1, 3, 1], [2, 3, 6, 5], [1, 3, 3, 6], [2, 2, 1, 4]]
     dkndm = 3
     dk = 3
-    x = Gracz_komputer_zgadujacy_kod_taktyka.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
+    x = Gracz_komputer_kod_taktyczny.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
     assert x == [[1, 1, 3, 1]]
 
 
@@ -107,7 +119,7 @@ def test_usuwanie_kombinacji3():
     kombinacje = [[1, 2, 3, 4], [1, 2, 4, 3], [4, 2, 1, 3], [1, 2, 4, 4]]
     dkndm = 2
     dk = 4
-    x = Gracz_komputer_zgadujacy_kod_taktyka.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
+    x = Gracz_komputer_kod_taktyczny.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
     assert x == [[1, 2, 4, 3]]
 
 
@@ -116,5 +128,5 @@ def test_usuwanie_kombinacji4():
     kombinacje = [[1, 2, 3, 4], [1, 2, 6, 4], [1, 3, 3, 4], [2, 2, 3, 4]]
     dkndm = 3
     dk = 3
-    x = Gracz_komputer_zgadujacy_kod_taktyka.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
+    x = Gracz_komputer_kod_taktyczny.usuwanie_kombinacji(ustawienie_kolorow_cyfry, kombinacje, dkndm, dk)
     assert x == [[1, 2, 6, 4], [1, 3, 3, 4], [2, 2, 3, 4]]
