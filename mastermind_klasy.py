@@ -1,3 +1,4 @@
+# Katarzyna Mielęcka - projekt
 import random
 
 

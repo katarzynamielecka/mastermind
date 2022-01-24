@@ -1,3 +1,4 @@
+# Katarzyna Mielęcka - projekt
 from mastermind_klasy import Gra, Gracz_ustawiajacy_kod
 from mastermind_klasy import Gracz_zgadujacy_kod, Komputer_ustawiajacy_kod
 from mastermind_klasy import Komputer_taktyczny
